@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemedicina</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Telemedicina</h1>
+        <label for="distrito">Seleccione su distrito:</label>
+        <select id="distrito" onchange="mostrarMedicos()">
+            <option value="">--Seleccione un distrito--</option>
+            <option value="los-olivos">Los Olivos</option>
+            <option value="san-borja">San Borja</option>
+            <option value="san-miguel">San Miguel</option>
+        </select>
+
+        <div id="medicos-lista" class="medicos-lista"></div>
+    </div>
+
+    <script>
+        const medicos = {
+            'los-olivos': [
+                {
+                    nombre: "Dr. Juan Perez",
+                    imagen: "doctor1.jpg",
+                    calificacion: 4.5,
+                    comentarios: "Excelente trato y muy profesional."
+                },
+                {
+                    nombre: "Dra. Maria Lopez",
+                    imagen: "doctor2.jpg",
+                    calificacion: 4.7,
+                    comentarios: "Muy buena doctora, altamente recomendable."
+                }
+            ],
+            'san-borja': [
+                {
+                    nombre: "Dr. Carlos Gomez",
+                    imagen: "doctor3.jpg",
+                    calificacion: 4.8,
+                    comentarios: "Gran atención y diagnóstico acertado."
+                }
+            ],
+            'san-miguel': [
+                {
+                    nombre: "Dra. Laura Fernandez",
+                    imagen: "doctor4.jpg",
+                    calificacion: 4.6,
+                    comentarios: "Profesional y muy amable."
+                }
+            ]
+        };
+
+        function mostrarMedicos() {
+            const distrito = document.getElementById('distrito').value;
+            const listaMedicos = document.getElementById('medicos-lista');
+            listaMedicos.innerHTML = '';
+
+            if (distrito && medicos[distrito]) {
+                medicos[distrito].forEach(medico => {
+                    const medicoDiv = document.createElement('div');
+                    medicoDiv.className = 'medico';
+
+                    const img = document.createElement('img');
+                    img.src = medico.imagen;
+                    img.alt = medico.nombre;
+
+                    const nombre = document.createElement('h2');
+                    nombre.innerText = medico.nombre;
+
+                    const calificacion = document.createElement('p');
+                    calificacion.innerText = `Calificación: ${medico.calificacion}`;
+
+                    const comentarios = document.createElement('p');
+                    comentarios.innerText = `Comentarios: ${medico.comentarios}`;
+
+                    medicoDiv.appendChild(img);
+                    medicoDiv.appendChild(nombre);
+                    medicoDiv.appendChild(calificacion);
+                    medicoDiv.appendChild(comentarios);
+
+                    listaMedicos.appendChild(medicoDiv);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
